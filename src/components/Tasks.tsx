@@ -1,5 +1,5 @@
 import styles from './Tasks.module.css';
-import { PlusCircle } from 'phosphor-react'
+import { Notepad, PlusCircle } from 'phosphor-react'
 
 export function Tasks() {
     return (
@@ -15,12 +15,24 @@ export function Tasks() {
                 </button>
             </form>    
 
-            <main>
-                <div>
-                    <strong>Tarefas criadas</strong>
-                    <span>0</span>
-                    <strong>Concluídas</strong>
-                    <span>0</span>
+            <main className={styles.main}>
+                <header className={styles.header}>
+                    <div className={styles.taskCreated}>
+                        <strong>Tarefas criadas</strong><span>3</span>
+                    </div>
+                    <div className={styles.taskFinished}>
+                        <strong>Tarefas concluídas</strong>
+                        <span>
+                            1 de 3
+                        </span>
+                    </div>
+                </header>
+                <div className={styles.emptyTasks}>
+                    <Notepad size={56} />
+                    <div>
+                        <strong>Você ainda não tem tarefas cadastradas</strong>
+                        <span>Crie tarefas e organize seus iten a fazer</span>
+                    </div>
                 </div>
             </main>
         </>
