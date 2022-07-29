@@ -1,0 +1,121 @@
+.task {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem;
+
+    min-height: 4.5rem;
+
+    border: 2px solid var(--gray-400);
+    background: var(--gray-500);
+    border-radius: 8px;
+}
+
+.taskFinished {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+
+    min-height: 4.5rem;
+
+    background: var(--gray-500);
+    padding: 1rem;
+    border-radius: 8px;
+
+    opacity: 0.7;
+}
+
+.task span,
+.taskFinished span {
+    line-height: 1.4;
+    color: var(--gray-100);
+    flex: 1;
+}
+
+.taskFinished span {
+    text-decoration: line-through;
+}
+
+.task > button,
+.taskFinished > button {
+    /*Criar borda para ao usar o hover o elemento não mover*/
+    border: transparent;
+    padding: 0.25rem;
+    border-radius: 8px;
+
+
+    background: transparent;
+    color: var(--gray-300);
+
+    cursor: pointer;
+    line-height: 0;
+}
+
+.task > button:hover,
+.taskFinished > button:hover {
+    color: var(--danger);
+    background: var(--gray-400);
+    border-radius: 8px;
+    padding: 0.25rem;
+}
+
+.task + .task,
+.task + .taskFinished,
+.taskFinished + .task,
+.taskFinished + .taskFinished {
+  margin-top: 0.75rem;
+}
+
+.task input[type=checkbox] {
+    -webkit-appearance: none;
+
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 9999px;
+
+    background-color: transparent;
+    border: 2px solid var(--blue);
+
+    outline: none;
+    cursor: pointer;
+}
+
+.task input[type=checkbox]:hover {
+    background-color: rgba(30, 111, 159, 0.2)
+}
+
+.task input[type=checkbox]:focus {
+    box-shadow: 0 0 0 2px var(--blue);
+}
+
+.task input[type='checkbox']:checked {
+    background-color: var(--purple-dark);
+    cursor: default;
+    margin: 3px 3px 3px 4px;
+    padding: initial;
+    border: initial;
+}
+
+.task input[type='checkbox']:checked:focus {
+    box-shadow: 0 0 0 2px var(--purple);
+}
+
+/* .task .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.task input[type=checkbox]:checked ~ .checkmark:after {
+    display: block;
+
+} */
