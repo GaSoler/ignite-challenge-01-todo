@@ -3,7 +3,8 @@ import { FormEvent, useState } from 'react';
 import { Task } from './Task';
 import styles from './Tasks.module.css';
 
-import {v4 as uuid} from 'uuid'
+import { v4 as uuid } from 'uuid'
+
 
 type Task = {
     id: string
@@ -26,17 +27,49 @@ const initialTasks = [
 
 export function Tasks() {
     const [tasks, setTasks] = useState<Task[]>(initialTasks);
+    const [newTask, setNewTask] = useState('');
+
+    function handleToggleCompleteTask(id: string) {
+        const newTasks = tasks.map(task => {
+            if (task.id === id) {
+                task.isFinished = !task.isFinished
+            }
+            return task
+        })
+
+        setTasks(newTasks)
+    }
+
+    function handleCreateNewTask(event: FormEvent) {
+        event.preventDefault()
+        const taskToAdd = {
+          id: uuid(),
+          content: newTask,
+          isFinished: false,
+        }
+    
+        setTasks([...tasks, taskToAdd])
+        setNewTask('')
+    }
+
+    function handleDeleteTask(id: string) {
+        const tasksWithoutDeletedOne = tasks.filter(task => task.id !== id)
+    
+        setTasks(tasksWithoutDeletedOne)
+    }
 
     const tasksCreated = tasks.length
 
-   /*  const tasksComplets = */ 
+    const tasksComplets = tasks.filter(task => task.isFinished).length 
 
     return (
         <>
-            <form  className={styles.newTask} >
+            <form  className={styles.newTask} onSubmit={handleCreateNewTask}>
                 <input 
                     type="text" 
                     placeholder='Adicione uma nova tarefa'
+                    value={newTask}
+                    onChange={event => setNewTask(event.target.value)}
                 />    
                 <button className={styles.buttonContainer} type='submit'>
                     <span>Criar</span>
@@ -47,12 +80,12 @@ export function Tasks() {
             <main className={styles.main}>
                 <header className={styles.header}>
                     <div className={styles.taskCreated}>
-                        <strong>Tarefas criadas</strong><span>3</span>
+                        <strong>Tarefas criadas</strong><span>{tasksCreated}</span>
                     </div>
                     <div className={styles.taskFinished}>
                         <strong>Tarefas concluídas</strong>
                         <span>
-                            1 de 3
+                            {tasksComplets} de {tasksCreated}
                         </span>
                     </div>
                 </header>
@@ -64,6 +97,8 @@ export function Tasks() {
                                 id={task.id}
                                 content={task.content}
                                 isFinished={task.isFinished}
+                                onToggleCompleted={handleToggleCompleteTask}
+                                onDeleteTask={handleDeleteTask}
                             />
                         ))}
                     </div>
